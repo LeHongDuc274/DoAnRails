@@ -4,9 +4,9 @@ validates :name_type, presence: true
 after_destroy :update_products
 
 def update_products
-	self.products.each do |pr|
-		pr.update(status: -1)
-	end
+  self.products.each do |pr|
+    pr.update(status: -1)
+  end
 end
 
 
