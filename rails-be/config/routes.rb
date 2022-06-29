@@ -15,6 +15,9 @@ delete '/users/delete' , to: 'users#delete'
 
 get '/users/index' , to: "users#index"
 
+post '/logout' , to: "authentications#logout"
+
+
 #product
 get '/products/index', to: 'products#index'
 
@@ -49,5 +52,22 @@ put '/order_details/update' , to: 'order_details#update'
 get '/order_details/ordering', to: 'order_details#ordering'
 
 patch '/orders/complete', to: 'orders#complete'
+
+
+#message 
+
+get '/messages/requesting' , to: 'messages#requesting'
+
+post '/messages/create', to: 'messages#create'
+
+patch 'messages/edit' , to: "messages#edit"
+
+
+#Report
+
+get '/reports/all_time', to: 'reports#revenue_all_time_per_month'
+
+get '/reports/last_week', to: 'reports#revenue_last_week'
+
 
 end

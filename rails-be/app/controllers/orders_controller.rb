@@ -66,6 +66,9 @@ def create_order_with_order_details
 		end
 
 		OrderDetail.import @order_details_new
+    # @order_details_new.each{ |detail|
+    #     detail.save
+    # }
 		ActionCable.server.broadcast "order_detail" , "".as_json
 		render json: {
 			status: true,

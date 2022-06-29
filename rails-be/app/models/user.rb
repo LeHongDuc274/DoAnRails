@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :orders 
+  has_many :messages
 
   validates :login_id , presence: true , uniqueness: true
   validates :password , presence: true, allow_nil: true

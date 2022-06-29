@@ -58,28 +58,28 @@ class CategoriesController < ApplicationController
     category = Category.find params[:id]
 
     edit_params.each do |k ,v|
-    if !category.update(k => v)
-      render json: {
-        status: false,
-        data: category.errors.full_messages
-      }, status: 404
-      return
-    end
+      if !category.update(k => v)
+        render json: {
+          status: false,
+          data: category.errors.full_messages
+        }, status: 404
+        return
+      end
 
     end
 
     if category
-    render json: {
-      status: true,
-      data: category
-    }
-    else
-    render json: {
-      status: false,
-      data: {
-
+      render json: {
+        status: true,
+        data: category
       }
-    }, status: :not_found
+    else
+      render json: {
+        status: false,
+        data: {
+
+        }
+      }, status: :not_found
     end
   end
 
