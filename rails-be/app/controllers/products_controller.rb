@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-before_action :can_modify_user? ,except: [:index]
+before_action :can_modify_user? ,except: [:index,:change_status]
 
   def index
     products = Product.all.order("created_at DESC")
@@ -10,7 +10,7 @@ before_action :can_modify_user? ,except: [:index]
       #  ProductResponse.new(e.id , e.name, e.content , e.price ,e.status, e.category_id, url_for(e.image).to_s)
       # }
       res = []
-      products.each do |product|
+      products.with_attached_image.each do |product|
         res << {
           id: product.id,
           name: product.name,
@@ -77,23 +77,20 @@ before_action :can_modify_user? ,except: [:index]
 
   def edit
     edit_params = {
-      name: params[:name], content: params[:content],
-      price: params[:price].to_i, category_id: params[:category_id].to_i
+      name: params[:name], content: params[:content],status: params[:status].to_i,
+      price: params[:price].to_i, category_id: params[:category_id].to_i,
     }
   
     product = Product.find params[:id].to_i
 
     product.image.attach(params[:image]) if params[:image].present?
 
-    edit_params.each do |k ,v|
-      if !product.update(k => v)
-        render json: {
-          status: false,
-          data: product.errors.full_messages
-        }, status: 404
-        return
-      end
-
+    if !product.update(edit_params)
+      render json: {
+        status: false,
+        data: product.errors.full_messages
+      }, status: 404
+      return
     end
 
     if product
@@ -111,6 +108,24 @@ before_action :can_modify_user? ,except: [:index]
 
       }
     }, status: :not_found
+    end
+  end
+
+  def change_status
+    product = Product.find params[:id].to_i
+    new_status = 0
+    new_status = 1 if product.status == 0
+
+    if !product.update(status: new_status)
+        render json: {
+          status: true,
+          data: []
+        }
+    else 
+      render json: {
+        status: false,
+        data: []
+      },status: 404
     end
   end
 

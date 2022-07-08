@@ -7,11 +7,12 @@ class MessagesController < ApplicationController
 		messages.each { |e|
 			user = e.user
 			response <<{
+				id: e.id,
 				user_id: user.id,
 				user_name: user.display_name,
 				status: e.status,
 				content: e.content,
-				created_at: e.created_at
+				created_at: e.created_at.strftime("%I:%M %p")
 			}
 		}
 

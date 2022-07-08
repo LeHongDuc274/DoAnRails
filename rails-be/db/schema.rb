@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2022_06_27_094428) do
     t.integer "amount"
     t.string "note"
     t.integer "status"
+    t.integer "total_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["order_id"], name: "index_order_details_on_order_id"

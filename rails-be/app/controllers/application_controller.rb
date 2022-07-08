@@ -28,4 +28,19 @@ class ApplicationController < ActionController::API
     @http_status = 200
   end
 
+  def order_details_response detail
+    {
+      "id": detail.id,
+      "user_id": detail.user_id,
+      "order_id": detail.order_id,
+      "product_id": detail.product_id,
+      "amount": detail.amount,
+      "note": detail.note,
+      "status": detail.status,
+      "total_price": detail.total_price,
+      "user_display_name": detail.user.display_name,
+      "created_at": detail.created_at&.strftime("%I:%M %p")
+    }
+  end
+
 end

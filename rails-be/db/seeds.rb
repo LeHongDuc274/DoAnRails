@@ -267,7 +267,7 @@ product.image.attach(io: File.open(File.join(Rails.root,
   start_time = 1.year.ago.to_i
   end_time = Time.now.to_i
   tables.each{ |table|
-    rand(1..50).times { |n1|
+    rand(200..500).times { |n1|
       time = Random.rand(start_time..end_time)
       order = Order.new(
         user_id: table.id,
@@ -280,11 +280,12 @@ product.image.attach(io: File.open(File.join(Rails.root,
       rand(1..10).times { |n2|
         product = products.shuffle().first
         amount = rand(1..10)
+        total_price_detail = product.price* amount
         order_details_new = OrderDetail.new( user_id: table.id,product_id: product.id,
-          order_id: order.id, amount: amount, note: "", status: 1 )
+          order_id: order.id, amount: amount, total_price: total_price_detail,note: "", status: 4 )
         order_details_new.created_at = Time.at(time)
         order_details_new.save
-        total_price += product.price * amount
+        total_price += total_price_detail
       }
       order.update(total_price: total_price)
     }

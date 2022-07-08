@@ -27,6 +27,8 @@ patch '/products/edit', to: 'products#edit'
 
 delete '/products/delete' , to: 'products#delete'
 
+patch '/products/change_status', to: 'products#change_status'
+
 #category
 get '/categories/index' ,to: 'categories#index'
 
@@ -53,6 +55,8 @@ get '/order_details/ordering', to: 'order_details#ordering'
 
 patch '/orders/complete', to: 'orders#complete'
 
+delete '/order_details/delete', to: 'order_details#delete'
+
 
 #message 
 
@@ -65,9 +69,13 @@ patch 'messages/edit' , to: "messages#edit"
 
 #Report
 
-get '/reports/all_time', to: 'reports#revenue_all_time_per_month'
+get '/reports/revenue_all_time', to: 'reports#revenue_all_time_per_month'
 
-get '/reports/last_week', to: 'reports#revenue_last_week'
+get '/reports/revenue_last_week', to: 'reports#revenue_last_week'
+
+get '/reports/product', to: 'reports#product'
+
+get '/reports/report_today', to: 'reports#report_today'
 
 
 end
