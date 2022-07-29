@@ -9,16 +9,26 @@
 User.create!(login_id: "Admin", display_name: "Admin", password: "123",
  password_confirmation: "123",role: 0 , status: 0, access_token: "", login_token: "")
 
-#cate + product
-# 5.times { |n|
-#     category = Category.create!(name_type: "category #{n}")
+User.create!(login_id: "Admin2", display_name: "Admin2", password: "123",
+ password_confirmation: "123",role: 0 , status: 0, access_token: "", login_token: "")
 
-#     10.times { |t|
-#         product = Product.create!(name: "product #{t} cate #{n}", content: "content #{t}", 
-#             price: (t+1)*10000, status: 0 ,category_id: category.id)
-#         product.image.attach(io: File.open(File.join(Rails.root, 'app/assets/images/pho1.jpeg')),filename: 'pho1.jpeg')
-#     }
-# }
+User.create!(login_id: "Admin3", display_name: "Admin3", password: "123",
+ password_confirmation: "123",role: 0 , status: 0, access_token: "", login_token: "")
+
+10.times { |n|
+    #create tale
+    user = User.create!(login_id: "table#{n}", display_name: "table#{n}", password: "123",
+     password_confirmation: "123",role: 3 , status: 0, access_token: "", login_token: "")
+  }
+  10.times { |n|
+    User.create!(login_id: "staff#{n}", display_name: "staff#{n}", password: "123",
+     password_confirmation: "123",role: 1 , status: 0, access_token: "", login_token: "")
+  }
+
+  10.times { |n|
+    User.create!(login_id: "kitchen#{n}", display_name: "kitchen#{n}", password: "123",
+     password_confirmation: "123",role: 2 , status: 0, access_token: "", login_token: "")
+  }
 
 #Com
 com = Category.create!(name_type: "Cơm")
@@ -228,68 +238,34 @@ product = Product.create!(name: "Sữa tươi trân châu", content: "Brown Suga
 product.image.attach(io: File.open(File.join(Rails.root, 
   'app/assets/images/sua_tuoi_tran_chau.jpeg')),filename: 'sua_tuoi_tran_chau.jpeg')
 
-
-10.times { |n|
-    #create tale
-    user = User.create!(login_id: "table#{n}", display_name: "table#{n}", password: "123",
-     password_confirmation: "123",role: 3 , status: 0, access_token: "", login_token: "")
-
-    #create order of table
-    # order_done = Order.create!(user_id: user.id,status: 1,total_price: 0)
-
-    # #create ordring 
-    # ordering = Order.create!(user_id: user.id,status: 0 ,total_price: 0)
-    #create order_details
-
-    # 5.times {|t|
-    #     OrderDetail.create!( user_id: user.id, product_id: t+1 ,
-    #     order_id: order_done.id ,amount: 4, note: " this note  done", status: 1)
-
-    #     OrderDetail.create!( user_id: user.id, product_id: t+1 ,
-    #     order_id: ordering.id ,amount: 10, note: " this note ordering", status: 0)
-    # }
-  }
-
-
-  10.times { |n|
-    User.create!(login_id: "staff#{n}", display_name: "staff#{n}", password: "123",
-     password_confirmation: "123",role: 1 , status: 0, access_token: "", login_token: "")
-  }
-
-  10.times { |n|
-    User.create!(login_id: "kitchen#{n}", display_name: "kitchen#{n}", password: "123",
-     password_confirmation: "123",role: 2 , status: 0, access_token: "", login_token: "")
-  }
-
-
-  tables = User.where("role = 3")
-  products = Product.all
-  start_time = 1.year.ago.to_i
-  end_time = Time.now.to_i
-  tables.each{ |table|
-    rand(200..500).times { |n1|
-      time = Random.rand(start_time..end_time)
-      order = Order.new(
-        user_id: table.id,
-        status: 1,
-        total_price: 0
-        )
-      order.created_at = Time.at(time)
-      order.save
-      total_price = 0
-      rand(1..10).times { |n2|
-        product = products.shuffle().first
-        amount = rand(1..10)
-        total_price_detail = product.price* amount
-        order_details_new = OrderDetail.new( user_id: table.id,product_id: product.id,
-          order_id: order.id, amount: amount, total_price: total_price_detail,note: "", status: 4 )
-        order_details_new.created_at = Time.at(time)
-        order_details_new.save
-        total_price += total_price_detail
-      }
-      order.update(total_price: total_price)
+tables = User.where("role = 3")
+products = Product.all
+start_time = 5.month.ago.to_i
+end_time = Time.now.to_i
+tables.each{ |table|
+  rand(150..300).times { |n1|
+    time = Random.rand(start_time..end_time)
+    order = Order.new(
+      user_id: table.id,
+      status: 1,
+      total_price: 0
+      )
+    order.created_at = Time.at(time)
+    order.save
+    total_price = 0
+    rand(3..5).times { |n2|
+      product = products.shuffle().first
+      amount = rand(1..4)
+      total_price_detail = product.price* amount
+      order_details_new = OrderDetail.new( user_id: table.id,product_id: product.id,
+        order_id: order.id, amount: amount, total_price: total_price_detail,note: "", status: 4 )
+      order_details_new.created_at = Time.at(time)
+      order_details_new.save
+      total_price += total_price_detail
     }
+    order.update(total_price: total_price)
   }
+}
 
 
   # 10.times do |n|

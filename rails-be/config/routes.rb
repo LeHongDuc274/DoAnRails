@@ -73,6 +73,8 @@ get '/reports/revenue_all_time', to: 'reports#revenue_all_time_per_month'
 
 get '/reports/revenue_last_week', to: 'reports#revenue_last_week'
 
+get '/reports/revenue_period_time', to: 'reports#report_period_time'
+
 get '/reports/product', to: 'reports#product'
 
 get '/reports/report_today', to: 'reports#report_today'

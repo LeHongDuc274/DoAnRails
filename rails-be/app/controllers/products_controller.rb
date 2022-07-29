@@ -129,7 +129,6 @@ before_action :can_modify_user? ,except: [:index,:change_status]
     end
   end
 
-
   def income_by_time
     product = Product.find params[:id]
     start_time = params[:start]

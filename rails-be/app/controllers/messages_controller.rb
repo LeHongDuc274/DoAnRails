@@ -1,6 +1,5 @@
 class MessagesController < ApplicationController
 
-
 	def requesting
 		messages = Message.where("status = 0").order("created_at DESC")
 		response = []
