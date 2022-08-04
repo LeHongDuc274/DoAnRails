@@ -29,8 +29,9 @@ class MessagesController < ApplicationController
 		if message.invalid?
 			render json: {
 				status: false,
-				data: nil
-			}, status: 401
+				data: nil,
+				message: "Lỗi"
+			}
 		else 
 			message.save
 			render json: {
@@ -59,8 +60,9 @@ class MessagesController < ApplicationController
 		else
 			render json: {
 				status: false,
-				data: nil
-			}, status: 401
+				data: nil,
+				message: "Lỗi"
+			}
 		end
 	end
 

@@ -12,15 +12,15 @@ class OrderDetailsController < ApplicationController
     if Product.find_by(id: params[:product_id]).status == 1
       return render json: {
         status: false,
-        data: order_detail
-      }, status: 400
+        message: "Lỗi : Không tạo được item"
+      }
     end
 
     if order_detail.invalid?
       render json: {
         status: false,
-        data: order_detail.errors.full_messages
-      }, status: 404
+        message: order_detail.errors.full_messages
+      }
     else
       order_detail.save
       data_message = []
@@ -43,9 +43,8 @@ class OrderDetailsController < ApplicationController
     if order_detail.status >= 1 && @current_user.role == 3
       render json: {
         status: false,
-        data: "This item was prepared"
-      }, 
-      status: 404
+        data: "Lỗi: Sản phẩm đang được chuẩn bị"
+      }
       return
     end
 
@@ -53,16 +52,16 @@ class OrderDetailsController < ApplicationController
   if order_detail.product.status == 1 && @current_user.role == 3
     return render json: {
       status: false,
-      message: 'Het hang'
-    }, status: 400
+      message: 'Sản phẩm này đã hết'
+    }
   end
 
   detail =  OrderDetail.update(params[:id],update_params)
   if detail.errors.present?
     render json: {
      status: false,
-     data: order_detail.errors.full_messages
-   }, status: 404
+     mesage: order_detail.errors.full_messages
+   }
 
  else
    data_message = []
@@ -91,13 +90,13 @@ def delete
   ActionCable.server.broadcast "order_detail", JSON.generate(message)
     render json: {
       status: true,
-      data: ""
+      data: nil  
     }
   else 
     render json: {
       status: false,
-      data: order_detail.errors.full_messages
-    }, status: 404
+      message: order_detail.errors.full_messages
+    }
   end
 end
 

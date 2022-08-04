@@ -28,8 +28,9 @@ before_action :can_modify_user? ,except: [:index,:change_status]
     else
       render json: {
         status: false,
-        data: products.errors.full_messages
-      }, status: 404
+        data: nil,
+        message: products.errors.full_messages
+      }
     end
 
   end
@@ -43,8 +44,9 @@ before_action :can_modify_user? ,except: [:index,:change_status]
     if product.invalid?
       render json: {
         status: false,
-        data: product.errors.full_messages
-      }, status: 404
+        data: nil ,
+        message: product.errors.full_messages
+      }
     else
       product.save
       product_res = ProductResponse.new(product.id , product.name, product.content ,
@@ -69,8 +71,9 @@ before_action :can_modify_user? ,except: [:index,:change_status]
     else 
       render json: {
         status: false,
-        data: product.errors.full_messages
-      }, status: 404
+        data: nil ,
+        message: product.errors.full_messages
+      }
     end
   end
 
@@ -88,8 +91,9 @@ before_action :can_modify_user? ,except: [:index,:change_status]
     if !product.update(edit_params)
       render json: {
         status: false,
-        data: product.errors.full_messages
-      }, status: 404
+        data: nil ,
+        message: product.errors.full_messages
+      }
       return
     end
 
@@ -104,10 +108,9 @@ before_action :can_modify_user? ,except: [:index,:change_status]
     else
     render json: {
       status: false,
-      data: {
-
-      }
-    }, status: :not_found
+      data: nil ,
+      message: "Có lỗi xảy ra"
+    }
     end
   end
 
@@ -119,13 +122,14 @@ before_action :can_modify_user? ,except: [:index,:change_status]
     if !product.update(status: new_status)
         render json: {
           status: true,
-          data: []
+          data: true 
         }
     else 
       render json: {
         status: false,
-        data: []
-      },status: 404
+        data: false,
+        message: "Không thể chuyển trạng thái"
+      }
     end
   end
 
@@ -152,10 +156,10 @@ before_action :can_modify_user? ,except: [:index,:change_status]
     else
       render json: {
         status: false,
-        data: product.errors.full_messages
-      }, status: 404
+        data: nil,
+        message: product.errors.full_messages
+      }
     end
-
   end
 
 end

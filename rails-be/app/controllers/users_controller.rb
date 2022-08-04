@@ -13,8 +13,8 @@ class UsersController < ApplicationController
     else 
       render json: {
         status: false,
-        data: users.errors.full_messages
-      }, status: 401
+        message: users.errors.full_messages
+      }
     end
   end
 
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     else 
       render json: {
         status: false,
-        data: []
+        message: ""
       }
     end
   end
@@ -46,10 +46,7 @@ class UsersController < ApplicationController
     if user.invalid?
       render json: {
         status: false,
-        data: {
-
-        },
-        errors_messages: user.errors.full_messages
+        messages: user.errors.full_messages
       }
     else 
       user.save
@@ -70,8 +67,8 @@ class UsersController < ApplicationController
       if !user.update(k => v)
         render json: {
           status: false,
-          data: user.errors.full_messages
-        }, status: 404
+          message: user.errors.full_messages
+        }
         return
       end
 
@@ -85,10 +82,8 @@ class UsersController < ApplicationController
     else
       render json: {
         status: false,
-        data: {
-
-        }
-      }, status: :not_found
+        message: ""
+      }
     end
 
   end
@@ -98,8 +93,8 @@ class UsersController < ApplicationController
     if !user || user.role == 0
       render json: {
         status: false,
-        data: "can't find this user"
-      }, status: 401
+        message: "can't find this user"
+      }
       return
     end
     if user.destroy
@@ -111,8 +106,8 @@ class UsersController < ApplicationController
     else
       render json: {
         status: false,
-        data: "can't delete Admin"
-      }, status: 401
+        message: "can't delete Admin"
+      }
 
     end
 
@@ -134,8 +129,8 @@ class UsersController < ApplicationController
     else
       render json: {
         status: false,
-        data: ''
-      }, status: 404
+        message: ''
+      }
     end
 
   end

@@ -9,8 +9,7 @@ class ReportsController < ApplicationController
 		else
 			render json:{
 				status: false,
-				message: "k phai admin",
-				data: []
+				message: "không phải admin"
 			}
 		end
 	end
@@ -26,8 +25,7 @@ class ReportsController < ApplicationController
 		else
 			render json:{
 				status: false,
-				message: "k phai admin",
-				data: []
+				message: "không phải admin"
 			}
 		end
 	end
@@ -43,8 +41,7 @@ class ReportsController < ApplicationController
 		else
 			render json:{
 				status: false,
-				message: "k phai admin",
-				data: []
+				message: "không phải admin"
 			}
 		end
 	end
@@ -61,8 +58,8 @@ class ReportsController < ApplicationController
 		else 
 			render json:{
 				status: false,
-				data: nil
-			}, status: 404
+				message: "Lựa chọn không tồn tại"
+			}
 		end
 	end
 
@@ -99,8 +96,7 @@ class ReportsController < ApplicationController
 		else
 			render json:{
 				status: false,
-				message: "k phai admin",
-				data: []
+				message: "không phải admin"
 			}
 		end
 	end

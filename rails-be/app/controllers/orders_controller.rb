@@ -11,8 +11,8 @@ class OrdersController < ApplicationController
  else
   render json: {
    status: false,
-   data: orders.errors.full_messages
- }, status: 404
+   message: orders.errors.full_messages
+ }
 end
 end
 
@@ -23,8 +23,8 @@ def ordering
 	unless tables.present? 
    render json: {
     status: false,
-    data: []
-  }, status: 404
+    message: ""
+  }
   return
 end
 
@@ -63,8 +63,8 @@ def create_order_with_order_details
 		if @errors.present?
 			render json: {
 				status: false,
-				data: @errors
-			}, status: 404 , errors: @errors
+				message: @errors
+			}
 			return
 		end
 
@@ -108,7 +108,7 @@ def creat_instance_order_details order #moi element co user_id, chua co order_id
     end
     product = Product.find_by(id: order_detail[:product_id])
     if (product.status == 1)
-      @errors << "#{product.name} da het hang"
+      @errors << "#{product.name} đã hết hàng"
     end
   end
 end
@@ -120,8 +120,9 @@ def order
 	if user.nil?
 		render json: {
 			status: false,
-			data: nil
-		}, status: :unauthorized
+			data: nil,
+      message: "Có lỗi xảy ra"
+		}
 		return
 	end
 
@@ -130,7 +131,8 @@ def order
 	if order_res.nil?
 		render json: {
 			status: false,
-			data: nil
+			data: nil,
+      message: "Có lỗi xảy ra !"
 		}
 	else
    render json: {
@@ -152,8 +154,8 @@ def complete
 	if user.nil?
 		render json: {
 			status: false,
-			data: nil
-		}, status: 404
+			data: false
+		}
 		return
 	end
 	order = user.orders.last
@@ -162,12 +164,12 @@ def complete
   if order.invalid?
     render json: {
      status: false,
-     data: nil
-   }, status: 404
+     data: false
+   }
  else
   render json: {
    status: true,
-   data: nil
+   data: false
  }
 end
 

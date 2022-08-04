@@ -13,8 +13,8 @@ class CategoriesController < ApplicationController
     else
       render json: {
         status: false,
-        data: categories.errors.full_messages
-      }, status: 404
+        message: categories.errors.full_messages
+      }
     end
 
   end
@@ -25,8 +25,8 @@ class CategoriesController < ApplicationController
     if category.invalid?
       render json: {
         status: false,
-        data: category.errors.full_messages
-      }, status: 404
+        message: category.errors.full_messages
+      }
     else
       category.save
       render json: {
@@ -47,8 +47,8 @@ class CategoriesController < ApplicationController
     else 
       render json: {
         status: false,
-        data: category.errors.full_messages
-      }, status: 404
+        message: category.errors.full_messages
+      }
     end
   end
 
@@ -61,8 +61,8 @@ class CategoriesController < ApplicationController
       if !category.update(k => v)
         render json: {
           status: false,
-          data: category.errors.full_messages
-        }, status: 404
+          message: category.errors.full_messages
+        }
         return
       end
 
@@ -76,10 +76,8 @@ class CategoriesController < ApplicationController
     else
       render json: {
         status: false,
-        data: {
-
-        }
-      }, status: :not_found
+        message: "Có lỗi xảy ra"
+      }
     end
   end
 

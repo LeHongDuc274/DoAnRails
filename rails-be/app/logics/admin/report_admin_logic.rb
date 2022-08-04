@@ -29,7 +29,7 @@ class Admin::ReportAdminLogic
 		revenue_per_month
 	end
 
-	def call_revenue_last_week start_time end_time
+	def call_revenue_last_week start_time , end_time
 		orders_this_week = Order.where("created_at BETWEEN ? AND ?", start_time, end_time)
 		data = []
 		
@@ -46,8 +46,8 @@ class Admin::ReportAdminLogic
 		data
 	end
 
-	def call_report_period_time start_time end_time
-				orders = Order.where("created_at BETWEEN ? AND ?", start_time, end_time)
+	def call_report_period_time start_time , end_time
+		orders = Order.where("created_at BETWEEN ? AND ?", start_time, end_time)
 		data = []
 
 		end_this_day = start_time.end_of_day
@@ -69,7 +69,7 @@ class Admin::ReportAdminLogic
 	end
 
 	def call_report_today
-			today = Time.now
+		today = Time.now
 		yesterday = today.beginning_of_day - 1.day
 		orders = Order.where("orders.created_at BETWEEN ? AND ?", yesterday, today).eager_load(:order_details)
 		revenue = orders.sum{|e| e.total_price}
