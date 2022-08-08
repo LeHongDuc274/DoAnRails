@@ -174,6 +174,28 @@ def complete
 end
 
 end
+def history
+  start_time = params[:time].to_s.to_time.beginning_of_day
+  end_time = start_time.end_of_day
+  orders = Order.where("orders.created_at >= ? and orders.created_at <= ? and orders.status = 1", start_time, end_time)
+                .eager_load(:user)
 
+  response = []
+  orders.each{|order_res|
+    response << {
+     id: order_res.id,
+     status: order_res.status,
+     user_id: order_res.user_id,
+     user_name: order_res.user.display_name,
+     total_price: order_res.total_price,
+     created_at: order_res.created_at.to_time.strftime("%d/%m/%Y %I:%M %p"),
+     order_details: order_res.order_details
+   }
+  }
+  render json: {
+    status: true,
+    data: response
+  }
+end
 
 end

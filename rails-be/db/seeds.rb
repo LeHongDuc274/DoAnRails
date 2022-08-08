@@ -6,28 +6,28 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create!(login_id: "Admin", display_name: "Admin", password: "123",
- password_confirmation: "123",role: 0 , status: 0, access_token: "", login_token: "")
+User.create!(login_id: "Admin", display_name: "Admin", password: "123456",
+ password_confirmation: "123456",role: 0 , status: 0, access_token: "", login_token: "")
 
-User.create!(login_id: "Admin2", display_name: "Admin2", password: "123",
- password_confirmation: "123",role: 0 , status: 0, access_token: "", login_token: "")
+User.create!(login_id: "Admin2", display_name: "Admin2", password: "123456",
+ password_confirmation: "123456",role: 0 , status: 0, access_token: "", login_token: "")
 
-User.create!(login_id: "Admin3", display_name: "Admin3", password: "123",
- password_confirmation: "123",role: 0 , status: 0, access_token: "", login_token: "")
+User.create!(login_id: "Admin3", display_name: "Admin3", password: "123456",
+ password_confirmation: "123456",role: 0 , status: 0, access_token: "", login_token: "")
 
 10.times { |n|
     #create tale
-    user = User.create!(login_id: "table#{n}", display_name: "table#{n}", password: "123",
-     password_confirmation: "123",role: 3 , status: 0, access_token: "", login_token: "")
+    user = User.create!(login_id: "table#{n+1}", display_name: "table#{n+1}", password: "123456",
+     password_confirmation: "123456",role: 3 , status: 0, access_token: "", login_token: "")
   }
   10.times { |n|
-    User.create!(login_id: "staff#{n}", display_name: "staff#{n}", password: "123",
-     password_confirmation: "123",role: 1 , status: 0, access_token: "", login_token: "")
+    User.create!(login_id: "staff#{n+1}", display_name: "staff#{n+1}", password: "123456",
+     password_confirmation: "123456",role: 1 , status: 0, access_token: "", login_token: "")
   }
 
   10.times { |n|
-    User.create!(login_id: "kitchen#{n}", display_name: "kitchen#{n}", password: "123",
-     password_confirmation: "123",role: 2 , status: 0, access_token: "", login_token: "")
+    User.create!(login_id: "kitchen#{n+1}", display_name: "kitchen#{n+1}", password: "123456",
+     password_confirmation: "123456",role: 2 , status: 0, access_token: "", login_token: "")
   }
 
 #Com

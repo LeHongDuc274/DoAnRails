@@ -80,24 +80,46 @@ end
 
 def delete
   order_detail = OrderDetail.find params[:id]
-  if order_detail && order_detail.status < 1 && order_detail.destroy
-   data_message = []
-   data_message << order_details_response(order_detail)
-   message = {
-    "type": "delete",
-    "data": data_message
-  }
-  ActionCable.server.broadcast "order_detail", JSON.generate(message)
-    render json: {
-      status: true,
-      data: nil  
+  if @current_user.is_admin?
+   if order_detail && order_detail.destroy
+      data_message = []
+      data_message << order_details_response(order_detail)
+      message = {
+        "type": "delete",
+        "data": data_message
+      }
+      ActionCable.server.broadcast "order_detail", JSON.generate(message)
+        render json: {
+          status: true,
+          data: nil  
+        }
+      else 
+        render json: {
+          status: false,
+          message: order_detail.errors.full_messages
+        }
+      end
+  else
+    if order_detail && order_detail.status < 1 && order_detail.destroy
+    data_message = []
+    data_message << order_details_response(order_detail)
+    message = {
+      "type": "delete",
+      "data": data_message
     }
-  else 
-    render json: {
-      status: false,
-      message: order_detail.errors.full_messages
-    }
+    ActionCable.server.broadcast "order_detail", JSON.generate(message)
+      render json: {
+        status: true,
+        data: nil  
+      }
+    else 
+      render json: {
+        status: false,
+        message: order_detail.errors.full_messages
+      }
+    end
   end
+
 end
 
 def ordering

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :messages
 
   validates :login_id , presence: true , uniqueness: true
-  validates :password , presence: true, allow_nil: true
+  validates :password , presence: true, allow_nil: true, length: {minimum: 6}
   validates :role , presence: true , inclusion: { in: [0 , 1 , 2 ,3] }
   validates :status , presence: true , inclusion: { in: [0 ,1] }
   validates :display_name , uniqueness: true

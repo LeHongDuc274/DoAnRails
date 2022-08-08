@@ -45,6 +45,8 @@ post '/orders/create' , to: 'orders#create_order_with_order_details'
 get '/orders/ordering' , to: 'orders#ordering'
 
 get '/orders/order', to: 'orders#order'
+
+get '/orders/history', to: 'orders#history'
 #order details
 
 post '/order_details/create' , to: 'order_details#create'
